@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600');
+
+.App {
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.root-body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+    font-size: 32px; /* Ukuran lebih kecil 20% dari 40px */
+    text-align: center;
+}
+
+.timeline {
+    position: relative;
+    margin: 50px auto;
+    padding: 32px 0; /* Kurangi padding */
+    width: 100%;
+    max-width: 1000px;
+    box-sizing: border-box;
+}
+
+.timeline:before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 1.6px; /* Lebar lebih kecil 20% dari 2px */
+    height: 100%;
+    background: #c5c5c5;
+}
+
+.timeline ul {
+    padding: 0;
+    margin: 0;
+}
+
+.timeline ul li {
+    list-style: none;
+    position: relative;
+    width: 50%;
+    padding: 16px 16px; /* Kurangi padding */
+    box-sizing: border-box;
+}
+
+.timeline ul li:nth-child(odd) {
+    float: left;
+    text-align: right;
+    clear: both;
+}
+
+.timeline ul li:nth-child(even) {
+    float: right;
+    text-align: left;
+    clear: both;
+}
+
+.content {
+    padding-bottom: 16px; /* Kurangi padding */
+}
+
+.timeline ul li:nth-child(odd):before,
+.timeline ul li:nth-child(even):before {
+    content: '';
+    position: absolute;
+    width: 8px; /* Lebar lebih kecil 20% dari 10px */
+    height: 8px; /* Tinggi lebih kecil 20% dari 10px */
+    top: 19.2px; /* Posisi lebih kecil 20% dari 24px */
+    background: rgba(233, 33, 99, 1);
+    border-radius: 50%;
+    box-shadow: 0 0 0 2.4px rgba(233, 33, 99, 0.2); /* Bayangan lebih kecil 20% dari 3px */
+}
+
+.timeline ul li:nth-child(odd):before {
+    right: -4.8px; /* Posisi lebih kecil 20% dari 6px */
+}
+
+.timeline ul li:nth-child(even):before {
+    left: -3.2px; /* Posisi lebih kecil 20% dari 4px */
+}
+
+.timeline ul li h3 {
+    padding: 0;
+    margin: 0;
+    color: rgba(233, 33, 99, 1);
+    font-weight: 600;
+    font-size: 12.8px; /* Ukuran lebih kecil 20% dari 16px */
+}
+
+.timeline ul li p {
+    margin: 8px 0 0; /* Margin lebih kecil 20% dari 10px */
+    padding: 0;
+    font-size: 11.2px; /* Ukuran lebih kecil 20% dari 14px */
+}
+
+.timeline ul li .time h4 {
+    margin: 0;
+    padding: 0;
+    font-size: 9.6px; /* Ukuran lebih kecil 20% dari 12px */
+}
+
+.timeline ul li:nth-child(odd) .time,
+.timeline ul li:nth-child(even) .time {
+    position: absolute;
+    top: 9.6px; /* Posisi lebih kecil 20% dari 12px */
+    margin: 0;
+    padding: 6.4px 12.8px; /* Padding lebih kecil 20% dari 8px 16px */
+    background: rgba(233, 33, 99, 1);
+    color: #fff;
+    border-radius: 14.4px; /* Radius lebih kecil 20% dari 18px */
+    box-shadow: 0 0 0 2.4px rgba(233, 33, 99, 0.3); /* Bayangan lebih kecil 20% dari 3px */
+}
+
+.timeline ul li:nth-child(odd) .time {
+    right: -132px; /* Posisi lebih kecil 20% dari 165px */
+}
+
+.timeline ul li:nth-child(even) .time {
+    left: -132px; /* Posisi lebih kecil 20% dari 165px */
+}
+
+@media (max-width: 1000px) {
+    .timeline {
+        width: 100%;
+    }
+}
+
+@media (max-width: 767px) {
+    .timeline {
+        width: 100%;
+        padding-bottom: 0;
+    }
+
+    h1 {
+        font-size: 24px; /* Ukuran lebih kecil 20% dari 30px */
+        text-align: center;
+    }
+
+    .timeline:before {
+        left: 16px; /* Posisi lebih kecil 20% dari 20px */
+        height: 100%;
+    }
+
+    .timeline ul li:nth-child(odd),
+    .timeline ul li:nth-child(even) {
+        width: 100%;
+        text-align: left;
+        padding-left: 40px; /* Padding lebih kecil 20% dari 50px */
+        padding-bottom: 40px; /* Padding lebih kecil 20% dari 50px */
+    }
+
+    .timeline ul li:nth-child(odd):before,
+    .timeline ul li:nth-child(even):before {
+        top: -14.4px; /* Posisi lebih kecil 20% dari -18px */
+        left: 12.8px; /* Posisi lebih kecil 20% dari 16px */
+    }
+
+    .timeline ul li:nth-child(odd) .time,
+    .timeline ul li:nth-child(even) .time {
+        top: -24px; /* Posisi lebih kecil 20% dari -30px */
+        left: 40px; /* Posisi lebih kecil 20% dari 50px */
+        right: inherit;
+    }
+}
