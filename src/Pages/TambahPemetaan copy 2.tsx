@@ -311,7 +311,7 @@ const TambahPemetaan: React.FC = () => {
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
         try {
             const response = await axios.post(
-                `http://localhost:9999/api/pemetaanKebun/CreatePemetaanKebun`,
+                `https://palmmapping-backend.my.to/api/pemetaanKebun/CreatePemetaanKebun`,
                 {
                     latitude: data.latitude,
                     longitude: data.longitude,

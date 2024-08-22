@@ -47,7 +47,7 @@ const TambahPemetaan: React.FC = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get<{ data: DataPemetaanHutan[] }>(
-                    'http://localhost:9999/api/pemetaanHutan/GetAllPemetaanHutan',
+                    'https://palmmapping-backend.my.to/api/pemetaanHutan/GetAllPemetaanHutan',
                 );
                 const data = response.data.data;
 

@@ -48,7 +48,7 @@ const FormUpdatePemetaanKebun: React.FC = () => {
             try {
                 console.log('state', state.customData);
                 const response = await axios.put<{ data: DataPemetaanKebun[] }>(
-                    `http://localhost:9999/api/pemetaanKebun/FindOnePemetaanKebun/${state.customData}`,
+                    `https://palmmapping-backend.my.to/api/pemetaanKebun/FindOnePemetaanKebun/${state.customData}`,
                 );
                 const data = response.data.data;
 

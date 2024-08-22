@@ -60,7 +60,7 @@ const useAuthStore = create(
                 set({ isLoading: true });
                 try {
                     const response = await axios.post(
-                        'http://localhost:9999/api/users/login',
+                        'https://palmmapping-backend.my.to/api/users/login',
                         {
                             email,
                             password,
@@ -90,7 +90,7 @@ const useAuthStore = create(
             getMe: async () => {
                 try {
                     const response = await axios.get<AuthResponse>(
-                        'http://localhost:9999/api/users/me',
+                        'https://palmmapping-backend.my.to/api/users/me',
                     );
                     set({
                         user: response.data.user,
@@ -113,7 +113,7 @@ const useAuthStore = create(
             logout: async () => {
                 try {
                     await axios.delete(
-                        'http://localhost:9999/api/users/logout',
+                        'https://palmmapping-backend.my.to/api/users/logout',
                     );
                     // Cookies.remove('userEmail');
                     localStorage.removeItem('auth-storage');

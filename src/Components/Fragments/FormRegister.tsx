@@ -60,7 +60,7 @@ const FormRegister = () => {
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
         try {
             console.log('Request Payload:', data);
-            await axios.post('http://localhost:9999/api/users', {
+            await axios.post('https://palmmapping-backend.my.to/api/users', {
                 nama: data.nama,
                 email: data.email,
                 alamat: data.alamat,

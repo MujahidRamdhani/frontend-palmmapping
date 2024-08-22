@@ -38,7 +38,7 @@ const useLegalitasLahanForm = () => {
         try {
             console.log('Submitting form with data:', data);
             const response = await axios.put(
-                `http://localhost:9999/api/legalitasLahan/UpdateStatusConfirmLegalitasLahan/${data.nomorSTDB}`,
+                `https://palmmapping-backend.my.to/api/legalitasLahan/UpdateStatusConfirmLegalitasLahan/${data.nomorSTDB}`,
                 {
                     statusKonfirmator: data.statusKonfirmasi,
                     pesanKonfirmator: data.pesanKonfirmator,

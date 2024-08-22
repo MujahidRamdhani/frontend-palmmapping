@@ -49,7 +49,7 @@ const FormUpdatePemetaanKebun: React.FC = () => {
         const fetchDataPemetaanKebun = async () => {
             try {
                 const response = await axios.put<{ data: DataPemetaanKebun }>(
-                    `http://localhost:9999/api/pemetaanKebun/FindOnePemetaanKebun/${state.customData}`,
+                    `https://palmmapping-backend.my.to/api/pemetaanKebun/FindOnePemetaanKebun/${state.customData}`,
                 );
                 const data = response.data.data;
 
@@ -82,7 +82,7 @@ const FormUpdatePemetaanKebun: React.FC = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get<{ data: any[] }>(
-                    'http://localhost:9999/api/pemetaanHutan/GetAllPemetaanHutan',
+                    'https://palmmapping-backend.my.to/api/pemetaanHutan/GetAllPemetaanHutan',
                 );
                 const data = response.data.data;
 
@@ -293,7 +293,7 @@ const FormUpdatePemetaanKebun: React.FC = () => {
                 };
 
                 await axios.put(
-                    `http://localhost:9999/api/pemetaanKebun/updateKebun/${state.customData}`,
+                    `https://palmmapping-backend.my.to/api/pemetaanKebun/updateKebun/${state.customData}`,
                     updatedData,
                 );
             }

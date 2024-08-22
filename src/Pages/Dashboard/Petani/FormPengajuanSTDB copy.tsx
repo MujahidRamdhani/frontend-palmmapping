@@ -308,7 +308,7 @@ const FormPengajuanSTDB = () => {
             console.log('Post data:', postData);
 
             const axiosRes = await axios.post(
-                'http://localhost:9999/api/legalitasLahan/CreateLegalitasLahan',
+                'https://palmmapping-backend.my.to/api/legalitasLahan/CreateLegalitasLahan',
                 postData,
             );
             console.log('Axios response:');

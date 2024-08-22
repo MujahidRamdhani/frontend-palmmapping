@@ -9,7 +9,7 @@ export const GetAllDataPemetaanHutan = async (): Promise<
 > => {
     try {
         const response = await axios.get<{ data: DataPemetaanHutan[] }>(
-            'http://localhost:9999/api/pemetaanHutan/GetAllPemetaanHutan',
+            'https://palmmapping-backend.my.to/api/pemetaanHutan/GetAllPemetaanHutan',
         );
         return response.data.data;
     } catch (error) {
@@ -27,7 +27,7 @@ export const FindOnePemetaanHutan = async (
 ): Promise<DataPemetaanHutan[]> => {
     try {
         const response = await axios.put<{ data: DataPemetaanHutan[] }>(
-            `http://localhost:9999/api/pemetaanHutan/FindOnePemetaanHutan/${idPemetaanHutan}`,
+            `https://palmmapping-backend.my.to/api/pemetaanHutan/FindOnePemetaanHutan/${idPemetaanHutan}`,
         );
         return response.data.data;
     } catch (error) {
@@ -45,7 +45,7 @@ export const HistoryPemetaanHutan = async (
 ): Promise<DataPemetaanHutan[]> => {
     try {
         const response = await axios.put<{ data: DataPemetaanHutan[] }>(
-            `http://localhost:9999/api/pemetaanHutan/HistoryPemetaanHutan/${idHutan}`,
+            `https://palmmapping-backend.my.to/api/pemetaanHutan/HistoryPemetaanHutan/${idHutan}`,
         );
         console.log('data', response.data.data);
         return response.data.data;

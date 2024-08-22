@@ -65,7 +65,7 @@ const SelectMitraKoperasi: React.FC<InputFieldProps> = ({
         const fetchKoperasiData = async () => {
             try {
                 const response = await axios.get<{ data: KoperasiData[] }>(
-                    'http://localhost:9999/api/users/findAllKoperasis',
+                    'https://palmmapping-backend.my.to/api/users/findAllKoperasis',
                 );
                 const data = response.data.data;
 
@@ -135,7 +135,7 @@ const Profile = () => {
         const fetchKoperasiData = async () => {
             try {
                 const response = await axios.get<{ data: UserData }>(
-                    'http://localhost:9999/api/users/profil',
+                    'https://palmmapping-backend.my.to/api/users/profil',
                 );
                 const data = response.data.data;
                 if (data) {
@@ -203,7 +203,7 @@ const Profile = () => {
 
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
         try {
-            await axios.put(`http://localhost:9999/api/users/UpdateProfil`, {
+            await axios.put(`https://palmmapping-backend.my.to/api/users/UpdateProfil`, {
                 idRole: data.idRole,
                 email: data.email,
                 password: data.password,
