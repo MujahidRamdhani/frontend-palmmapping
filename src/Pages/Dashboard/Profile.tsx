@@ -31,6 +31,8 @@ type KoperasiData = {
 
 type UserData = {
     nik: string;
+    niKoperasi: string;
+    nip: string;
     email: string;
     nama: string;
     alamat: string;
@@ -139,7 +141,16 @@ const Profile = () => {
                 );
                 const data = response.data.data;
                 if (data) {
-                    setValue('idRole', data.nik);
+                    if(user?.data.role === 'PETANI'){
+                        setValue('idRole', data.nik);
+                    }
+                    if(user?.data.role === 'KOPERASI'){
+                        setValue('idRole', data.niKoperasi);
+                    }
+                    if(user?.data.role === 'DINAS'){
+                        setValue('idRole', data.nip);
+                    }
+
                     setValue('email', data.email);
                     setValue('nama', data.nama);
                     setValue('alamat', data.alamat);

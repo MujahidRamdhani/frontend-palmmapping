@@ -5,7 +5,7 @@ import ParticlesComponent from '../Components/Elements/Particles/Particles';
 import './app.css';
 import Navbar from '../Components/Elements/Navbar/Navbar';
 const Login = () => {
-    localStorage.removeItem('auth-storage');
+    
     return (
         <>
             <ParticlesComponent id="particles" />

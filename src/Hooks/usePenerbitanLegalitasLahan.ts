@@ -36,7 +36,7 @@ const usePengajuanLegalitasLahanForm = () => {
             );
             setShowModal(false);
             // const responseData = JSON.parse(response.data.data);
-            showSuccessNotification(response.data.data);
+            showSuccessNotification('legalitas lahan berhasil diterbitkan');
             console.log('Axios response hasil:', response.data.data);
         } catch (err) {
             console.log(err);

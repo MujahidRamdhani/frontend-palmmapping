@@ -17,6 +17,7 @@ interface InputFieldProps {
     ) => void;
     Hektar?: string;
     span?: string;
+    defaultValue?: string;
 }
 
 const InputDashboard: React.FC<InputFieldProps> = ({
@@ -33,6 +34,7 @@ const InputDashboard: React.FC<InputFieldProps> = ({
     onChange,
     span,
     readOnly,
+    defaultValue,
 }) => {
     return (
         <div className="mb-4.5">
@@ -56,7 +58,7 @@ const InputDashboard: React.FC<InputFieldProps> = ({
                     hidden={hidden}
                     value={value}
                     onChange={onChange}
-                   
+                    defaultValue={defaultValue}
                      readOnly={readOnly}
                 />
                 {span && (

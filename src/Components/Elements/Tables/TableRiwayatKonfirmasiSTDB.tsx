@@ -572,7 +572,7 @@ export default function PaginationTablePage() {
                                                                                 errors
                                                                             }
                                                                             placeholder="Masukan Id Pemetaan Kebun"
-                                                                            readOnly={true}
+                                                                         hidden
                                                                         />
                                                                     <div className="">
                                                                         <InputDashboard
@@ -590,13 +590,13 @@ export default function PaginationTablePage() {
                                                                             }
                                                                             placeholder="Masukan Nomor STDB"
                                                                             readOnly={true}
-                                                                        />
+                                                               />
                                                                     </div>
 
                                                                     <InputDashboard
                                                                         label="Pesan Konfirmator"
                                                                         id="pesanKonfirmator"
-                                                                        value={
+                                                                        defaultValue={
                                                                             pesanKonfirmator
                                                                         }
                                                                         type="text"

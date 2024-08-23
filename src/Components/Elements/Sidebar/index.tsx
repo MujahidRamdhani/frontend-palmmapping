@@ -199,12 +199,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                         <li>
                                             <NavLink
                                                 to="/dashboard/DaftarPemetaan"
-                                                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-indigo-600 dark:hover:bg-meta-4 ${
-                                                    pathname.includes(
-                                                        'profile',
-                                                    ) &&
-                                                    'bg-indigo-600 dark:bg-meta-4'
-                                                }`}
+                                                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-indigo-600 dark:hover:bg-meta-4 bg-indigo-600 dark:bg-meta-4`}
                                             >
                                                 Daftar Pemetaan
                                             </NavLink>
@@ -213,12 +208,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                         <li>
                                             <NavLink
                                                 to="/dashboard/RiwayatPemetaan"
-                                                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-indigo-600 dark:hover:bg-meta-4 ${
-                                                    pathname.includes(
-                                                        'profile',
-                                                    ) &&
-                                                    'bg-indigo-600 dark:bg-meta-4'
-                                                }`}
+                                                className={'group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-indigo-600 dark:hover:bg-meta-4 bg-indigo-600 dark:bg-meta-4'}
                                             >
                                                 Riwayat Pemetaan
                                             </NavLink>

@@ -13,6 +13,7 @@ import FormatTanggalJamLabel from '../Components/Elements/Tables/table/FormatTan
 
 import 'leaflet-geosearch/dist/geosearch.css';
 import LeafletgeoSearch from '../Components/Elements/LeaftletGeoSearch/LeafletgeoSearch';
+import RoundNumber from '../Components/Elements/Tables/table/verificationLavelRoundNumber';
 
 interface LatLngLiteral {
     lat: number;
@@ -305,6 +306,7 @@ const Peta: React.FC = () => {
                                                     <h4>
                                                         Luas Areal Hutan{' '}
                                                         {luasHutan} Hektar
+                                                        <RoundNumber luasLahan={luasHutan} />
                                                     </h4>
                                                     <h4>
                                                         waktu Pemetaan Hutan{' '}
