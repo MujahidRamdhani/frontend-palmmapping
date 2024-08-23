@@ -183,7 +183,7 @@ const Profile = () => {
             },
             {
                 message:
-                    'Mitra Koperasi tidak boleh kosong untuk peran petani!',
+                    'Mitra Koperasi tidak boleh kosong untuk petani!',
                 path: ['mitraKoperasi'], // The path where the error should be displayed
             },
         );
@@ -249,24 +249,24 @@ const Profile = () => {
                          placeholder="Masukan Nomor Induk Kependudukan"
                      />
                     )}
-                    {user?.data.role === 'dinas' && (
+                    {user?.data.role === 'koperasi' && (
                          <InputDashboard
-                         label="Nomor Induk Pegawai (NIP)"
+                         label="Nomor Induk Koperasi (NIK)"
                          id="idRole"
                          type="string"
                          register={register}
                          errors={errors}
-                         placeholder="Masukan Nomor Induk Kependudukan"
+                         placeholder="Masukan Nomor Induk Koperasi"
                      />
                     )}
-                     {user?.data.role === 'petani' && (
+                     {user?.data.role === 'dinas' && (
                          <InputDashboard
                          label="Nomor Induk Pegawai (NIP)"
                          id="idRole"
                          type="string"
                          register={register}
                          errors={errors}
-                         placeholder="Masukan Nomor Induk Kependudukan"
+                         placeholder="Masukan Nomor Induk Pegawai"
                      />
                     )}
 
