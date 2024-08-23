@@ -29,7 +29,7 @@ const usePengajuanLegalitasLahanForm = () => {
         try {
             console.log('Submitting form with data:', data);
             const response = await axios.put(
-                `http://localhost:9999/api/legalitasLahan/PublishLegalitasLahan/${data.nomorSTDB}`,
+                `https://palmmapping-backend.my.to/api/legalitasLahan/PublishLegalitasLahan/${data.nomorSTDB}`,
                 {
                     nomorSTDB: data.nomorSTDB,
                 },

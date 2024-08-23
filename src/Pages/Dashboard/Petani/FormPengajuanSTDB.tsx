@@ -316,7 +316,7 @@ const FormPengajuanSTDB = () => {
             console.log('Post data:', postData);
 
             const axiosRes = await axios.post(
-                'http://localhost:9999/api/legalitasLahan/CreateLegalitasLahan',
+                'https://palmmapping-backend.my.to/api/legalitasLahan/CreateLegalitasLahan',
                 postData,
             );
             console.log('Axios response:');
@@ -354,7 +354,7 @@ const FormPengajuanSTDB = () => {
         const fetchKoperasiData = async () => {
             try {
                 const response = await axios.put<{ data: KoperasiData }>(
-                    'http://localhost:9999/api/users/findOneKoperasi',
+                    'https://palmmapping-backend.my.to/api/users/findOneKoperasi',
                 );
                 const data = response.data.data;
                 const { niKoperasi, alamat, namaKoperasi } = data;

@@ -98,7 +98,7 @@ const Peta: React.FC = () => {
         const getPeta = async () => {
             try {
                 const response = await axios.get(
-                    'http://localhost:9999/api/pemetaanKebun/GetAllPemetaanKebun',
+                    'https://palmmapping-backend.my.to/api/pemetaanKebun/GetAllPemetaanKebun',
                 );
                 setDataPemetaan(response.data);
                 console.log('Axios response:', response.data);
@@ -119,7 +119,7 @@ const Peta: React.FC = () => {
         const getLegalitasLahan = async () => {
             try {
                 const response = await axios.get(
-                    'http://localhost:9999/api/legalitasLahan/GetAllLegalitasLahan',
+                    'https://palmmapping-backend.my.to/api/legalitasLahan/GetAllLegalitasLahan',
                 );
                 setStdbs(response.data);
                 console.log('Axios response:', response.data);

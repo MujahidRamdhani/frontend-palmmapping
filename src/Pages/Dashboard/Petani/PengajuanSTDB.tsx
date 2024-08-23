@@ -29,7 +29,7 @@ const PengajuanSTDB = () => {
         const fetchKoperasiData = async () => {
             try {
                 const response = await axios.get<{ data: UserData }>(
-                    'http://localhost:9999/api/users/profil',
+                    'https://palmmapping-backend.my.to/api/users/profil',
                 );
                 const data = response.data.data;
     

@@ -37,7 +37,7 @@ const useUpdateVerifikasiPemetaanKebun = () => {
         try {
             console.log('Submitting form with data:', data);
             const response = await axios.put(
-                `http://localhost:9999/api/pemetaanKebun/UpdateStatusVerify/${data.idPemetaanKebun}`,
+                `https://palmmapping-backend.my.to/api/pemetaanKebun/UpdateStatusVerify/${data.idPemetaanKebun}`,
                 {
                     statusVerifikator: data.statusVerifikator,
                     pesanVerifikator: data.pesanVerifikator,

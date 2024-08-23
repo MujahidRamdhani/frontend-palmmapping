@@ -168,7 +168,7 @@ export default function TablePenerbitanSTDB() {
     const getProducts = async () => {
         try {
             const response = await axios.get(
-                'http://localhost:9999/api/legalitasLahan/GetAllLegalitasLahan',
+                'https://palmmapping-backend.my.to/api/legalitasLahan/GetAllLegalitasLahan',
             );
             setStdbs(response.data.data);
             console.log('Axios response:', response.data.data);
@@ -199,7 +199,7 @@ export default function TablePenerbitanSTDB() {
     const getPemetaan = async () => {
         try {
             const response = await axios.get(
-                'http://localhost:9999/api/pemetaanKebun/GetAllPemetaanKebun',
+                'https://palmmapping-backend.my.to/api/pemetaanKebun/GetAllPemetaanKebun',
             );
             setDataPemetaan(response.data.data);
             console.log('Axios response:', response.data.data);
