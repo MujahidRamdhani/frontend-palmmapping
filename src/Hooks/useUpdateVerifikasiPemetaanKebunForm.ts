@@ -2,24 +2,21 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
 import { z } from 'zod';
+import { useModalStore } from '../store/useModalStore';
 import { showSuccessNotification } from '../utils/util';
-import { useNavigate } from 'react-router-dom';
 
 const schema = z.object({
-    latitude: z.string().nonempty('Mohon Petakan Terlebih Dahulu !!!'),
-    longitude: z.string().nonempty('Mohon Petakan Terlebih Dahulu !!!'),
-    statusKawasan: z.string().nonempty('Mohon Petakan Terlebih Dahulu !!!'),
-    luasLahan: z.number().max(25, "Luas lahan maksimal adalah 25 Hektar"),
-    nomorSTDB: z.string().nonempty('Mohon isi Nomor STDB terlebih dahulu !!!'),
-    idPemetaanKebun: z
+    statusVerifikator: z.string().nonempty('Pilih Status Verifikator !!!'),
+    idPemetaanKebun: z.string().nonempty('Pilih Status Verifikator !!!'),
+    pesanVerifikator: z
         .string()
-        .nonempty('Mohon isi Id Pemetaan Kebun terlebih dahulu !!!'),
+        .nonempty('Pesan Verifikator Tidak Boleh Kosong !!!'),
+     statusPenerbitLegalitas : z.string().nonempty('Status Penerbit Legalitas Tidak Boleh Kosong !!!'),
 });
 
 type FormFields = z.infer<typeof schema>;
 
-const useTambahPemetaanKebunForm = () => {
-    const navigate = useNavigate();
+const useUpdateVerifikasiPemetaanKebun = () => {
     const {
         register,
         handleSubmit,
@@ -31,25 +28,28 @@ const useTambahPemetaanKebunForm = () => {
         resolver: zodResolver(schema),
     });
 
+    const setShowModal = useModalStore((state) => state.setShowModal);
+    const setShowModalPenolakan = useModalStore(
+        (state) => state.setShowModalPenolakan,
+    );
+
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
         try {
             console.log('Submitting form with data:', data);
-            const response = await axios.post(
-                `http://localhost:9999/api/pemetaanKebun/CreatePemetaanKebun`,
+            const response = await axios.put(
+                `http://localhost:9999/api/pemetaanKebun/UpdateStatusVerify/${data.idPemetaanKebun}`,
                 {
-                    latitude: data.latitude,
-                    longitude: data.longitude,
-                    statusKawasan: data.statusKawasan,
-                    nomorSTDB: data.nomorSTDB,
-                    idPemetaanKebun: data.idPemetaanKebun,
-                    luasKebun: data.luasLahan,
+                    statusVerifikator: data.statusVerifikator,
+                    pesanVerifikator: data.pesanVerifikator,
+                    statusPenerbitLegalitas: data.statusPenerbitLegalitas
                 },
             );
-
-            // const responseData = JSON.parse(response.data.data);
-            showSuccessNotification(response.data.data);
-            navigate('/dashboard/DaftarPemetaan');
-            // console.log('Axios response:', responseData);
+            console.log(response);
+            setShowModal(false);
+            setShowModalPenolakan(false);
+            showSuccessNotification('Update verifikasi pemetaan kebun sukses');
+            reset();
+            
         } catch (err) {
             console.log(err);
             if (err instanceof AxiosError) {
@@ -75,4 +75,4 @@ const useTambahPemetaanKebunForm = () => {
     };
 };
 
-export default useTambahPemetaanKebunForm;
+export default useUpdateVerifikasiPemetaanKebun;

@@ -13,11 +13,12 @@ const schema = z.object({
     pesanKonfirmator: z
         .string()
         .nonempty('Pesan Konfirmator Tidak Boleh Kosong !!!'),
+        idPemetaanKebun :z.string().nonempty('Id Pemetaan Kebun Tidak Boleh Kosong !!!'),
 });
 
 type FormFields = z.infer<typeof schema>;
 
-const useLegalitasLahanForm = () => {
+const useUpdateStatusConfirm = () => {
     const {
         register,
         handleSubmit,
@@ -42,6 +43,7 @@ const useLegalitasLahanForm = () => {
                 {
                     statusKonfirmator: data.statusKonfirmasi,
                     pesanKonfirmator: data.pesanKonfirmator,
+                    idPemetaanKebun: data.idPemetaanKebun,
                 },
             );
            
@@ -72,4 +74,4 @@ const useLegalitasLahanForm = () => {
     };
 };
 
-export default useLegalitasLahanForm;
+export default useUpdateStatusConfirm;

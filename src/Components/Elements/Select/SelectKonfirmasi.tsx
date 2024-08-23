@@ -4,15 +4,17 @@ interface InputFieldProps {
     id: string;
     register: any;
     errors: { [key: string]: { message?: string } };
+    value?: string;
 }
 
 const SelectKonfirmasi: React.FC<InputFieldProps> = ({
     id,
     register,
     errors,
+    value = '', // Use default value if not provided
 }) => {
-    const [selectedOption, setSelectedOption] = useState<string>('');
-    const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
+    const [selectedOption, setSelectedOption] = useState<string>(value);
+    const [isOptionSelected, setIsOptionSelected] = useState<boolean>(!!value);
 
     const changeTextColor = () => {
         setIsOptionSelected(true);
@@ -24,7 +26,6 @@ const SelectKonfirmasi: React.FC<InputFieldProps> = ({
                 className="mb-2.5 block text-black dark:text-white"
                 htmlFor="Konfirmasi"
             >
-                {' '}
                 Status Konfirmasi
             </label>
 

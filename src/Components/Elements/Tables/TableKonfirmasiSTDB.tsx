@@ -50,7 +50,7 @@ export default function PaginationTablePage() {
     };
 
     const handleResetTutup = () => {
-        // reset();
+        reset();
     };
     const handleResetDiterima = () => {
         // reset({
@@ -132,7 +132,7 @@ export default function PaginationTablePage() {
     const filterData = (data: LegalitasLahan[]) => {
         return data.filter(
             (item: LegalitasLahan) =>
-                item.statusKonfirmator === 'False' &&
+                item.statusKonfirmator === 'Belum dikonfirmasi' &&
                 item.nikKonfirmator === nikKoperasi,
         );
     };
@@ -214,8 +214,10 @@ export default function PaginationTablePage() {
                                                     <button
                                                         className="text-gray-400 hover:text-gray-500"
                                                         aria-label="close"
-                                                        onClick={() =>
+                                                        onClick={() =>{
                                                             setShowModal(false)
+                                                            handleResetTutup();
+                                                        }
                                                         }
                                                     >
                                                         <svg
@@ -478,7 +480,7 @@ export default function PaginationTablePage() {
                                                                 true,
                                                             );
                                                             setShowModal(false);
-                                                            handleResetDitolak();
+                                                        
                                                         }}
                                                     >
                                                         Ubah Status Konfirmasi
@@ -516,9 +518,12 @@ export default function PaginationTablePage() {
                                                         className="text-gray-400 hover:text-gray-500"
                                                         aria-label="close"
                                                         onClick={() =>
+                                                            {
                                                             setShowModalPenolakan(
                                                                 false,
                                                             )
+                                                            handleResetTutup();
+                                                            }
                                                         }
                                                     >
                                                         <svg
@@ -548,21 +553,17 @@ export default function PaginationTablePage() {
                                                             >
                                                                 <div className="">
                                                                     <div className="">
-                                                                        <InputDashboard
-                                                                            label="Nomor STDB"
-                                                                            id="nomorSTDB"
-                                                                            type="string"
-                                                                            value={
-                                                                                stdb.nomorSTDB
-                                                                            }
-                                                                            register={
-                                                                                register
-                                                                            }
-                                                                            errors={
-                                                                                errors
-                                                                            }
-                                                                            placeholder="Masukan Nomor STDB"
-                                                                        />
+                                                                    <InputDashboard
+  label="Nomor STDB"
+  id="nomorSTDB"
+  type="string"
+  value={nomorSTDB}
+  register={register} // Ensure this is passed correctly
+  errors={errors}
+  placeholder="Masukan Nomor STDB"
+  hidden
+/>
+
                                                                     </div>
 
                                                                     <InputDashboard
@@ -610,7 +611,6 @@ export default function PaginationTablePage() {
                                                                     type="submit"
                                                                     onClick={() => {
                                                                         // setShowModal(false);
-                                                                        handleResetTutup();
                                                                     }}
                                                                     disabled={
                                                                         isSubmitting
@@ -640,9 +640,12 @@ export default function PaginationTablePage() {
                                                     <button
                                                         className="inline-flex w-full justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-stone-400 text-base font-medium text-white hover:bg-stone-700 sm:ml-3 sm:w-auto sm:text-sm"
                                                         onClick={() =>
+                                                            {
                                                             setShowModalPenolakan(
                                                                 false,
                                                             )
+                                                            handleResetTutup();
+                                                            }
                                                         }
                                                     >
                                                         Tutup

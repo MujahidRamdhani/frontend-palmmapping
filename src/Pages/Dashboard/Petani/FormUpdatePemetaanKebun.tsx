@@ -15,6 +15,7 @@ import InputDashboard from '../../../Components/Elements/Input/InputDashboard';
 import useTambahPemetaanKebunForm from '../../../Hooks/useTambahPemetaanKebunForm';
 import Button from '../../../Components/Elements/Button/Button';
 import useUpdatePemetaanKebunForm from '../../../Hooks/useUpdatePemetaankebunForm';
+import LeafletgeoSearch from '../../../Components/Elements/LeaftletGeoSearch/LeafletgeoSearch';
 
 const FormUpdatePemetaanKebun: React.FC = () => {
     const { user } = useAuthStore((state) => state);
@@ -395,6 +396,8 @@ const FormUpdatePemetaanKebun: React.FC = () => {
     if (!dataLoaded) {
         return <div>Loading...</div>;
     }
+    const MAPBOX_ACCESS_TOKEN =
+    'pk.eyJ1IjoiYWhtYWRtdWphaGlkIiwiYSI6ImNsdzFiaW1ibjA0N3Mya3FqdWFhZXhqc3oifQ.8hMXRQtRBrfZfyl6-kjFLw';
 
     return (
         <DefaultLayout>
@@ -413,6 +416,7 @@ const FormUpdatePemetaanKebun: React.FC = () => {
                             zoom={ZOOM_LEVEL}
                             ref={mapContainerRef}
                         >
+                            <LeafletgeoSearch />
                             <FeatureGroup>{renderedPolygonsHutan}</FeatureGroup>
 
                             <FeatureGroup>
@@ -445,12 +449,8 @@ const FormUpdatePemetaanKebun: React.FC = () => {
                             </FeatureGroup>
 
                             <TileLayer
-                                url={
-                                    'https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=fXmTwJM642uPLZiwzhA1'
-                                }
-                                attribution={
-                                    '&copy; <a href="https://www.maptiler.com/">MapTiler</a> &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                                }
+                                url={`https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/{z}/{x}/{y}?access_token=${MAPBOX_ACCESS_TOKEN}`}
+                                attribution='&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             />
                         </MapContainer>
                     </div>
@@ -524,28 +524,29 @@ const FormUpdatePemetaanKebun: React.FC = () => {
                         <div className="">
                             <InputDashboard
                                 label="Nomor STDB"
-                                type="text"
+                                type="string"
                                 id="nomorSTDB"
                                 register={register}
                                 errors={errors}
-                                disabled
+                                readOnly={true}
                             />
                             <InputDashboard
                                 label="Id Pemetaan Kebun"
-                                type="text"
+                                type="string"
                                 id="idPemetaanKebun"
                                 register={register}
                                 errors={errors}
-                                disabled
+                                readOnly={true}
                             />
                             <div className="">
+                                <div className='hidden'>
                                 <InputDashboard
                                     label="waktuPemetaanKebun"
                                     type="text"
                                     id="waktuPemetaanKebun"
                                     register={register}
                                     errors={errors}
-                                    disabled
+                                    disabled={true}
                                 />
                                 <InputDashboard
                                     label="waktuVerifikator"
@@ -553,8 +554,10 @@ const FormUpdatePemetaanKebun: React.FC = () => {
                                     id="waktuVerifikator"
                                     register={register}
                                     errors={errors}
-                                    disabled
+                                    disabled={true}
                                 />
+                                </div>
+                                
                             </div>
                         </div>
 

@@ -45,8 +45,9 @@ const userVerifikasiPemetaanKebun = () => {
             setShowModal(false);
             setShowModalPenolakan(false);
             // const responseData = JSON.parse(response.data.data);
-            showSuccessNotification(response.data.data);
-            console.log('Axios response hasil:', response.data.data);
+            showSuccessNotification('verifikasi pemetaan kebun sukses');
+            reset();
+            
         } catch (err) {
             console.log(err);
             if (err instanceof AxiosError) {

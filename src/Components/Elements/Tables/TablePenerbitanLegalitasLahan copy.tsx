@@ -158,7 +158,7 @@ export default function PaginationTablePage() {
     const filterData = (data: LegalitasLahan[]) => {
         return data.filter(
             (item: LegalitasLahan) =>
-                item.idPemetaanKebun !== 'False' &&
+                item.idPemetaanKebun !== 'Belum diterbitkan' &&
                 item.nipPenerbitLegalitas === 'False' &&
                 item.statusVerifikator === 'Disetujui',
         );
@@ -497,7 +497,7 @@ export default function PaginationTablePage() {
 
                                                             </div>
                                                             
-                                                            <div>
+                                                            <div className='mt-4 p-4'>
                                                                             <MapComponent
                                                                                 longitude={
                                                                                     longitude

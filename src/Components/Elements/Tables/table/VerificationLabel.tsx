@@ -29,9 +29,7 @@ const VerificationLabel: React.FC<VerificationLabelProps> = ({
     //     status = 'Ditolak';
     // }
 
-    if ( status === 'False'){
-        status === 'Belum diKonfirmasi';
-    }
+  
 
     return (
         <span
@@ -66,15 +64,13 @@ const VerificationLabel: React.FC<VerificationLabelProps> = ({
             )}
             {(status === 'False' ||
                 status === 'Belum Dipetakan' ||
-                status === 'Belum diKonfirmasi') && (
+                status === 'Belum dikonfirmasi') && (
                 <>
                     {status} <AiOutlineLoading3Quarters />
                 </>
             )}
 
-            {(status === 'didalam kawasan' ||
-                status === 'diluar kawasan' ||
-                status === 'sebagian memasuki kawasan') && <>{status}</>}
+
 
             {/* {status === 'dipetakan' && (
                 <>

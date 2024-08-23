@@ -49,15 +49,7 @@ const App = () => {
     ) : (
         <>
             <Routes>
-                {/* <Route
-                    path="/LihatPosisiKebun"
-                    element={
-                        <>
-                            <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-                            <LihatPosisiKebun />
-                        </>
-                    }
-                /> */}
+          
                 <Route
                     index
                     element={

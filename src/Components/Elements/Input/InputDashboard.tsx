@@ -8,7 +8,7 @@ interface InputFieldProps {
     errors: FieldErrors; // Make message optional
     placeholder?: string;
     valueAsNumber?: any; // Making valueAsNumber optional
-    readOnly?: string;
+    readOnly?: boolean;
     hidden?: boolean;
     value?: string;
     disabled?: boolean;
@@ -32,6 +32,7 @@ const InputDashboard: React.FC<InputFieldProps> = ({
     disabled,
     onChange,
     span,
+    readOnly,
 }) => {
     return (
         <div className="mb-4.5">
@@ -55,7 +56,8 @@ const InputDashboard: React.FC<InputFieldProps> = ({
                     hidden={hidden}
                     value={value}
                     onChange={onChange}
-                    // readOnly={readOnly}
+                   
+                     readOnly={readOnly}
                 />
                 {span && (
                     <span className="px-3 py-3.5 text-slate-400 text-sm bg-whiter border-[1.5px] border-stroke rounded-r font-medium">

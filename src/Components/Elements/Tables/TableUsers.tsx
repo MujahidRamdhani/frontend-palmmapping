@@ -20,6 +20,8 @@ export interface Cooperative {
     role: string;
     createdAt: string;
     wallet: string;
+    email: string;
+
 }
 
 const schema = z.object({
@@ -46,6 +48,8 @@ export default function PaginationTablePage() {
     const { user } = useAuthStore((state) => state);
     const [error2, setError2] = useState(null);
     const [users, setUsers] = useState<Cooperative[]>([]);
+    const [showModalUpdate, setShowModalUpdate] = useState(false);
+    const [email, setEmail] = useState('');
 
     const {
         register,
@@ -75,7 +79,9 @@ export default function PaginationTablePage() {
             // setShowModal(false);
             // setShowModalPenolakan(false);
             showSuccessNotification(response.data.data);
-           
+            reset();
+            setShowModalUpdate(false);
+                                                   
         } catch (err) {
             console.log(err);
             if (err instanceof AxiosError) {
@@ -157,40 +163,20 @@ export default function PaginationTablePage() {
             // cell: (props) => <VerificationLabel statusPenerbitanSTDB={props.getValue()} />,
         },
         {
-            accessorKey: 'uuid',
+            accessorKey: 'action',
             header: 'Action',
             cell: (cell: any) => {
                 return (
                     <div className="">
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            <div className="hidden">
-                                <InputDashboard
-                                    label="email"
-                                    id="email"
-                                    type="string"
-                                    value={cell.row.original.email}
-                                    register={register}
-                                    errors={errors}
-                                    placeholder="Masukan uuid"
-                                />
-                                <InputDashboard
-                                    label="role"
-                                    id="role"
-                                    type="string"
-                                    value={cell.row.original.role}
-                                    register={register}
-                                    errors={errors}
-                                    placeholder="Masukan uuid"
-                                />
-                            </div>
-
-                            <button
-                                className="rounded  bg-primary px-3 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-                                type="submit"
-                            >
-                                Enroll CA
-                            </button>
-                        </form>
+                        <button
+                            className="rounded bg-primary px-3 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                            onClick={() => {
+                                setShowModalUpdate(true);
+                                setEmail(cell.row.original.email);
+                            }}
+                        >
+                            Enroll Certificate
+                        </button>
                     </div>
                 );
             },
@@ -208,6 +194,116 @@ export default function PaginationTablePage() {
                 className="mt-8"
                 withFilter
             />
+            {filterData(users)
+    .filter((user) => user.email === email)
+    .map((user, index) => {
+        const { email, role } = user;
+        return (
+            showModalUpdate && (
+                <div className="fixed inset-0 overflow-y-auto backdrop-blur-sm">
+                    <div className="flex items-end justify-center min-h-full p-4 text-center sm:items-center sm:p-0">
+                        <div className="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all lg:w-2/4 sm:w-4/6 xl:w-1/2">
+                            <header className="bg-gray-50 px-4 py-3 sm:px-6 flex justify-between items-center">
+                                <p className="text-lg font-semibold">
+                                    Enroll Certificate Authory
+                                </p>
+                                <button
+                                    className="text-gray-400 hover:text-gray-500"
+                                    aria-label="close"
+                                    onClick={() => {
+                                        reset();
+                                        setShowModalUpdate(false);
+                                    }}
+                                >
+                                    <svg
+                                        className="h-6 w-6"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                            d="M6 18L18 6M6 6l12 12"
+                                        />
+                                    </svg>
+                                </button>
+                            </header>
+                            <div className="max-h-125 overflow-y-scroll p-4">
+                                <div className="bg-slate-100 rounded-xl">
+                                    <section className="px-4 pt-5 pb-4 sm:p-6 sm:pb-4 center ">
+                                    <div className="flex justify-center items-center ">
+                                        <div>
+
+                            <p className='font-bold'>
+                            Apakah Yakin memberikan Certificate Authority?
+                            </p>
+  <span className='text-sm text-danger'>
+    Enroll Certificate tidak bisa di batalkan
+  </span>
+  </div>
+</div>
+                                    </section>
+                                </div>
+                            </div>
+                            <footer className="bg-gray-50 px-4 py-3 sm:px-6 flex justify-end">
+                            <div className='flex gap-4 justify-center items-center'>
+                                    
+                               
+                         
+                                <button
+                                    className="inline-flex justify-center rounded-md px-4 py-2 bg-stone-400 text-base font-medium text-white hover:bg-stone-700"
+                                    onClick={() => {
+                                        setShowModalUpdate(false);
+                                        reset();
+                                    }}
+                                >
+                                    Tidak
+                                </button>
+                                <form onSubmit={handleSubmit(onSubmit)}>
+                                            <div className='hidden'>
+                                                <InputDashboard
+                                                    label="Email"
+                                                    id="email"
+                                                    type="text"
+                                                    value={email}
+                                                    register={register}
+                                                    errors={errors}
+                                                    placeholder="Masukan email"
+                                                   
+                                                />
+                                                <InputDashboard
+                                                    label="Role"
+                                                    id="role"
+                                                    type="text"
+                                                    value={role}
+                                                    register={register}
+                                                    errors={errors}
+                                                    placeholder="Masukan role"
+                                                   
+                                                />
+                                            </div>
+                                            <button
+                                                className="rounded bg-primary px-7 py-3 text-xs font-medium uppercase text-white shadow-md transition hover:bg-primary-600 focus:outline-none "
+                                                type="submit"
+                                               
+                                            >
+                                               Ya
+                                            </button>
+                                        </form>
+                                </div>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+            )
+        );
+    })}
+
         </main>
+
+
     );
 }

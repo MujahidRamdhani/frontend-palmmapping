@@ -13,6 +13,7 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 import { GetAllDataPemetaanHutan } from '../../../Services/pemetaanHutanServices';
 import { NavLink } from 'react-router-dom';
 import useIdHutanStore from '../../../store/useIdHutanStore';
+import RoundNumber from './table/verificationLavelRoundNumber';
 
 export default function PaginationTablePage() {
     const [showModal, setShowModal] = useState(false);
@@ -50,6 +51,9 @@ export default function PaginationTablePage() {
         {
             accessorKey: 'luasHutan',
             header: 'Luas Hutan',
+            cell: (props) => (
+                <RoundNumber luasLahan={props.getValue() as string} />
+            ),
         },
         {
             accessorKey: 'waktuPemetaanHutan',

@@ -58,7 +58,7 @@ const TimelineItem: React.FC<TimelineProps> = ({
                 </div>
             </div>
 
-            {statusKonfirmator !== 'False' && (
+            {statusKonfirmator !== 'Belum dikonfirmasi' && (
                 <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
                     {statusKonfirmator === 'Disetujui' ? (
                         <div className="flex items-center justify-center w-8 h-8 rounded-full border border-white bg-emerald-500 text-emerald-50 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">

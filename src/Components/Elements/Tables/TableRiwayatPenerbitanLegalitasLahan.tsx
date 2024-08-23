@@ -15,6 +15,8 @@ import './App.css';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import VerificationLabelVerifikator from './VerificationLabelVerifikator';
 import VerificationLabelPenerbitanLegalitas from './VerificationLabelPenerbitanLegalitas';
+import RoundNumber from './table/verificationLavelRoundNumber';
+import VerificationLabelStatusKawasan from './table/VerificationLabelStatusKawasan';
 
 export default function PaginationTablePage() {
     const [showModal, setShowModal] = useState(false);
@@ -77,31 +79,44 @@ export default function PaginationTablePage() {
             header: 'Nomor STDB',
         },
         {
-            accessorKey: 'WaktuPengajuanSTDB',
-            header: 'Tanggal Pengajuan',
-            cell: (props) => <FormatTanggalLabel tanggal={props.getValue()} />,
+            accessorKey: 'nik',
+            header: 'NOMOR KTP',
         },
-
         {
-            accessorKey: 'nikKonfirmator',
-            header: 'nik konfirmator',
+            accessorKey: 'luasKebun',
+            header: 'luas Kebun',
+            cell: (props) => (
+                <RoundNumber luasLahan={props.getValue() as string} />
+            ),
+            
+        },
+        {
+            accessorKey: 'statusKawasan',
+            header: 'status kawasan',
+            cell: (props) => (
+                <VerificationLabelStatusKawasan
+                    statusKawasan={props.getValue()}
+                />
+            ),
         },
         {
             accessorKey: 'nikSurveyor',
-            header: 'nik Surveyor',
+            header: 'nik surveryor',
+         
         },
         {
-            accessorKey: 'nipVerifikator',
-            header: 'nip Verifikator',
+            accessorKey: 'waktuVerifikator',
+            header: 'waktu verifikator',
+            cell: (props) => <FormatTanggalJamLabel tanggal={props.getValue()} />,
         },
         {
             accessorKey: 'waktuPenerbitLegalitas',
             header: 'waktu penerbitan legalitas',
-            cell: (props) => <FormatTanggalLabel tanggal={props.getValue()} />,
+            cell: (props) => <FormatTanggalJamLabel tanggal={props.getValue()} />,
         },
 
         {
-            accessorKey: 'nomorSTDB',
+            accessorKey: 'action',
             header: 'Action',
             cell: (cell: any) => {
                 return (

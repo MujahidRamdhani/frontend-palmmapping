@@ -456,8 +456,8 @@ const FormUpdateLegalitasLahan = () => {
             console.log('Axios response:');
             reset();
             const response = axiosRes.data.data;
-            showSuccessNotification(response);
-            // navigate('/dashboard/pengajuanSTDB');
+            showSuccessNotification('Update Legalitas Lahan Berhasil');
+            navigate('/dashboard/pengajuanSTDB');
             console.log(response);
         } catch (err) {
             console.log(err);
@@ -504,6 +504,9 @@ const FormUpdateLegalitasLahan = () => {
                     </div>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="p-6.5">
+<div className='hidden'>
+
+                           
                             <InputDashboard
                                 label="Waktu Pengajuan"
                                 id="waktuPengajuan"
@@ -546,7 +549,7 @@ const FormUpdateLegalitasLahan = () => {
                                 errors={errors}
                                 placeholder="Masukan id Data Kebun"
                             />
-
+ </div>
 
                             <InputDashboard
                                 label="Nomor STDB"
@@ -555,6 +558,7 @@ const FormUpdateLegalitasLahan = () => {
                                 register={register}
                                 errors={errors}
                                 placeholder="Masukan Nomor STDB"
+                                disabled
                                 // value={nik}
                                 // readOnly="true"
                             />
@@ -636,6 +640,7 @@ const FormUpdateLegalitasLahan = () => {
                                 register={register}
                                 errors={errors}
                                 placeholder="Masukan Mitra Pengolahan"
+                                disabled
                             />
                             <SelectJenisTanah
                                 register={register}
@@ -677,7 +682,7 @@ const FormUpdateLegalitasLahan = () => {
                                         >
                                             Download File Legalitas
                                         </a>
-
+<div className='hidden'>
                                         <InputDashboard
                                             label="CID Legalitas Lahan"
                                             id="oldFileLegalitasLahan"
@@ -686,6 +691,7 @@ const FormUpdateLegalitasLahan = () => {
                                             errors={errors}
                                             placeholder="Masukan CID Legalitas Lahan"
                                         />
+</div>
                                         <Button
                                             type="button"
                                             onClick={handleDeleteLegalitas}
@@ -712,6 +718,7 @@ const FormUpdateLegalitasLahan = () => {
                                                 alt="Upload"
                                             />
                                         </div>
+                                        <div className='hidden'>
                                         <InputDashboard
                                             label="CID Legalitas Lahan"
                                             id="oldImage"
@@ -720,6 +727,7 @@ const FormUpdateLegalitasLahan = () => {
                                             errors={errors}
                                             placeholder="Masukan CID Legalitas Lahan"
                                         />
+                                        </div>
                                         <Button
                                             type="button"
                                             width="32"

@@ -13,7 +13,8 @@ import Button from '../Elements/Button/Button';
 // Define validation schema using Zod
 const schema = z
     .object({
-        nik: z.string().nonempty('Masukkan nik'),
+        nik: z.string() .min(16, { message: 'NIK minimal 16 karakter' })
+        .nonempty('Masukkan NIK'),
         nama: z.string().nonempty('Masukkan nama'),
         email: z.string().email('Masukkan alamat email yang valid'),
         password: z
@@ -21,7 +22,8 @@ const schema = z
             .min(8, 'Kata sandi harus terdiri dari minimal 8 karakter'),
         confPassword: z.string(),
         alamat: z.string().nonempty('Masukkan alamat'),
-        nomorTelepon: z.string().nonempty('Masukkan nomor telepon'),
+        nomorTelepon: z.string().min(9, { message: 'Nomor telepon minimal 9 Digit' })
+        .nonempty('Masukkan nomor telepon'),
         Role: z.string().nonempty('Pilih Roles terlebih dahulu !!!'),
     })
     .refine((data) => data.password === data.confPassword, {

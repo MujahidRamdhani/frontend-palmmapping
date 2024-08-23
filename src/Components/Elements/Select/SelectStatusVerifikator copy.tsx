@@ -1,26 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 interface InputFieldProps {
     id: string;
     register: any;
     errors: { [key: string]: { message?: string } };
-    value?: string; // Add the value prop
+    value?: string;
 }
 
 const SelectStatusVerifikator: React.FC<InputFieldProps> = ({
     id,
     register,
     errors,
-    value = '', // Use value prop to set the initial value
+    value='',
 }) => {
-    const [selectedOption, setSelectedOption] = useState<string>(value);
-    const [isOptionSelected, setIsOptionSelected] = useState<boolean>(!!value);
-
-    useEffect(() => {
-        // When value changes from the parent, update the selected option
-        setSelectedOption(value);
-        setIsOptionSelected(!!value); // Update text color if value is present
-    }, [value]);
+    const [selectedOption, setSelectedOption] = useState<string>('');
+    const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
     const changeTextColor = () => {
         setIsOptionSelected(true);
@@ -30,8 +24,9 @@ const SelectStatusVerifikator: React.FC<InputFieldProps> = ({
         <div className="mb-4.5">
             <label
                 className="mb-2.5 block text-black dark:text-white"
-                htmlFor={id}
+                htmlFor="statusVerifikator"
             >
+                {' '}
                 Status Verifikator
             </label>
 

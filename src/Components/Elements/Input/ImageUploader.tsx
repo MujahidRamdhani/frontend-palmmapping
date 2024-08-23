@@ -78,6 +78,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                             type="button"
                             onClick={handleDeleteImage}
                             className="mt-3 px-4 py-2 text-white bg-red-500 rounded hover:bg-red-700 max-h-10"
+                            hidden
                         >
                             Delete Image
                         </button>

@@ -23,6 +23,8 @@ import useIdPemetaanKebunStore from '../../../store/useIdPemetaanKebunStore';
 import userVerifikasiPemetaanKebun from '../../../Hooks/useVerifikasiPemetaanKebunForm';
 import InputDashboard from '../Input/InputDashboard';
 import SelectStatusVerifikator from '../Select/SelectStatusVerifikator';
+import RoundNumber from './table/verificationLavelRoundNumber';
+import useUpdateVerifikasiPemetaanKebun from '../../../Hooks/useUpdateVerifikasiPemetaanKebunForm';
 
 export default function PaginationTablePage() {
     const [showModal, setShowModal] = useState(false);
@@ -47,7 +49,7 @@ export default function PaginationTablePage() {
         formState: { errors, isSubmitting },
         onSubmit,
         reset,
-    } = userVerifikasiPemetaanKebun();
+    } = useUpdateVerifikasiPemetaanKebun();
     useEffect(() => {
         const fetchSTDBS = async () => {
             try {
@@ -95,12 +97,26 @@ export default function PaginationTablePage() {
             header: 'Nomor STDB',
         },
         {
+            accessorKey: 'idPemetaanKebun',
+            header: 'id Pemetaan Kebun',
+        },
+        {
             accessorKey: 'nik',
             header: 'NOMOR KTP',
         },
+        
         {
             accessorKey: 'luasKebun',
             header: 'luas Kebun',
+            cell: (props) => (
+                <RoundNumber luasLahan={props.getValue() as string} />
+            ),
+            
+        },
+        {
+            accessorKey: 'statusVerifikator',
+            header: 'luas Kebun',
+
         },
         {
             accessorKey: 'statusKawasan',
@@ -124,6 +140,7 @@ export default function PaginationTablePage() {
                 />
             ),
         },
+        
         {
             accessorKey: 'waktuVerifikator',
             header: 'waktu verifikator',
@@ -135,7 +152,7 @@ export default function PaginationTablePage() {
         },
 
         {
-            accessorKey: 'nomorSTDB',
+            accessorKey: 'action',
             header: 'Action',
             cell: (cell: any) => {
                 return (
@@ -241,6 +258,7 @@ export default function PaginationTablePage() {
                     statusVerifikator,
                     pesanVerifikator,
                     cidFileLegalitasKebun,
+                    statusPenerbitLegalitas,
                 } = stdb;
                 
                 return(
@@ -575,9 +593,12 @@ export default function PaginationTablePage() {
                                 className="text-gray-400 hover:text-gray-500"
                                 aria-label="close"
                                 onClick={() =>
-                                    setUpdateStatusVerifikasi(
-                                        false,
-                                    )
+                                    {
+                                        setUpdateStatusVerifikasi(
+                                            false,
+                                        )
+                                        reset()
+                                    }
                                 }
                             >
                                 <svg
@@ -612,6 +633,7 @@ export default function PaginationTablePage() {
                                                 <InputDashboard
                                                     label="Id Pemetaan Kebun"
                                                     id="idPemetaanKebun"
+                                                
                                                     type="string"
                                                     value={
                                                         idPemetaanKebun
@@ -623,14 +645,20 @@ export default function PaginationTablePage() {
                                                         errors
                                                     }
                                                     placeholder="Masukan Id Pemetaan Kebun"
+                                                    readOnly={true}
                                                 />
+                                                
                                             </div>
+                                           
                                             <InputDashboard
                                                 label="Pesan Verifikator"
                                                 id="pesanVerifikator"
                                                 type="string"
                                                 register={
                                                     register
+                                                }
+                                                value={
+                                                    pesanVerifikator
                                                 }
                                                 errors={
                                                     errors
@@ -639,24 +667,54 @@ export default function PaginationTablePage() {
                                             />
 
                                             <SelectStatusVerifikator
-                                                id="statusVerifikator"
+                                                id="Status Verifikator"
+                                                value={
+                                                    statusVerifikator
+                                                }
                                                 register={
                                                     register
                                                 }
                                                 errors={
                                                     errors
                                                 }
-
-                                                // hidden={true}
                                             />
+                                            <div className="">
+                                                <InputDashboard
+                                                    label="status Penerbit Legalitas"
+                                                    id="statusPenerbitLegalitas"
+                                                
+                                                    type="string"
+                                                    value={
+                                                        statusPenerbitLegalitas
+                                                    }
+                                                    register={
+                                                        register
+                                                    }
+                                                    errors={
+                                                        errors
+                                                    }
+                                                    placeholder="Masukan status penerbitan leagalitas"
+                                                />
+                                            </div>
                                         </div>
 
                                         <button
-                                            type="submit"
-                                            className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                        >
-                                            Simpan
-                                        </button>
+                                                                    className={`inline-flex w-full justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#34D399] text-base font-medium text-white hover:bg-[#207a59] sm:ml-3 sm:w-auto sm:text-sm ${
+                                                                        isSubmitting
+                                                                            ? 'bg-opacity-90'
+                                                                            : ''
+                                                                    }`}
+                                                                    type="submit"
+                                                                    
+                                                                    disabled={
+                                                                        isSubmitting
+                                                                    }
+                                                                >
+                                                                    {isSubmitting
+                                                                        ? 'Memuat...'
+                                                                        : 'Simpan'}
+                                                                </button>
+
                                     </form>
                                 </section>
                             </div>
@@ -665,9 +723,13 @@ export default function PaginationTablePage() {
                             <button
                                 className="inline-flex w-full justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-stone-400 text-base font-medium text-white hover:bg-stone-700 sm:ml-3 sm:w-auto sm:text-sm"
                                 onClick={() =>
-                                    setUpdateStatusVerifikasi(
-                                        false,
-                                    )
+                                    {
+                                        setUpdateStatusVerifikasi(
+                                            false,
+                                        )
+                                        reset()
+                                    }
+                                    
                                 }
                             >
                                 Tutup

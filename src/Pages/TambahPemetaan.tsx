@@ -137,7 +137,7 @@ const TambahPemetaan: React.FC = () => {
                 setValue('latitude', dataLatString);
                 setValue('longitude', dataIngString);
                 setValue('statusKawasan', kawasan);
-                setValue('luasLahan', readableArea);
+                setValue('luasLahan', parseFloat(readableArea));
             }
         }
     }, [newMaps]);
@@ -214,6 +214,12 @@ const TambahPemetaan: React.FC = () => {
     };
 
     const _onCreate = (e: any) => {
+        reset({
+            latitude: '',
+            longitude: '',
+            statusKawasan: '',
+            luasLahan: 0,
+        });
         console.log(
             'Mencoba membuat poligon dengan dataLoaded:',
             dataLoaded,
@@ -304,7 +310,7 @@ const TambahPemetaan: React.FC = () => {
             latitude: '',
             longitude: '',
             statusKawasan: '',
-            luasLahan: '',
+            luasLahan: 0,
         });
         const {
             layers: { _layers },
@@ -416,13 +422,7 @@ const TambahPemetaan: React.FC = () => {
                                             marker: false,
                                         }}
                                         edit={{
-                                            edit: {
-                                                selectedPathOptions: {
-                                                    maintainColor: true,
-                                                    opacity: 0.3,
-                                                },
-                                            },
-                                            remove: true,
+                                            edit: false
                                         }}
                                     />
                                 )}
@@ -542,7 +542,7 @@ const TambahPemetaan: React.FC = () => {
                             <div className="w-5/12 ml-auto flex">
                                 <InputDashboard
                                     label="Luas Lahan"
-                                    type="text"
+                                    type="number"
                                     id="luasLahan"
                                     register={register}
                                     errors={errors}
@@ -553,21 +553,21 @@ const TambahPemetaan: React.FC = () => {
                         </div>
 
                         <div className="">
-                            <InputDashboard
+                        <InputDashboard
                                 label="Nomor STDB"
-                                type="text"
+                                type="string"
                                 id="nomorSTDB"
                                 register={register}
                                 errors={errors}
-                                disabled
+                                readOnly={true}
                             />
                             <InputDashboard
                                 label="Id Pemetaan Kebun"
-                                type="text"
+                                type="string"
                                 id="idPemetaanKebun"
                                 register={register}
                                 errors={errors}
-                                disabled
+                                readOnly={true}
                             />
                             <div className="flex  w-3"></div>
                         </div>

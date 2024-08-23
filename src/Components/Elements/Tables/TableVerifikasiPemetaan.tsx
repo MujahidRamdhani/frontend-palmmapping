@@ -81,8 +81,8 @@ export default function PaginationTablePage() {
     }, [isSubmitting]);
 
     const handleResetTutup = () => {
-        // reset();
-        console.log('test');
+         reset();
+       
     };
 
     const handleResetValueNomorSTDB = (idPemetaanKebun: any) => {
@@ -291,7 +291,10 @@ export default function PaginationTablePage() {
                                                         className="text-gray-400 hover:text-gray-500"
                                                         aria-label="close"
                                                         onClick={() =>
+                                                            {
                                                             setShowModal(false)
+                                                            handleResetTutup();
+                                                            }
                                                         }
                                                     >
                                                         <svg
@@ -545,7 +548,7 @@ export default function PaginationTablePage() {
 
                                                             </div>
                                                             
-                                                            <div>
+                                                            <div className='mt-4 p-4'>
                                                                             <MapComponent
                                                                                 longitude={
                                                                                     longitude
@@ -579,7 +582,7 @@ export default function PaginationTablePage() {
                                                             setShowModal(false);
                                                         }}
                                                     >
-                                                        Ubah Status Konfirmasi
+                                                        Ubah status Verifikasi Pemetaan Kebun
                                                     </button>
                                                     <button
                                                         className="inline-flex w-full justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-stone-400 text-base font-medium text-white hover:bg-stone-700 sm:ml-3 sm:w-auto sm:text-sm"
@@ -613,9 +616,12 @@ export default function PaginationTablePage() {
                                 className="text-gray-400 hover:text-gray-500"
                                 aria-label="close"
                                 onClick={() =>
+                                    {
                                     setShowModalPenolakan(
                                         false,
                                     )
+                                    handleResetTutup();
+                                    }
                                 }
                             >
                                 <svg
@@ -692,8 +698,13 @@ export default function PaginationTablePage() {
                                         <button
                                             type="submit"
                                             className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                            disabled={
+                                                isSubmitting
+                                            }
                                         >
-                                            Simpan
+                                           {isSubmitting
+                                                                        ? 'Memuat...'
+                                                                        : 'Simpan'}
                                         </button>
                                     </form>
                                 </section>
@@ -703,9 +714,12 @@ export default function PaginationTablePage() {
                             <button
                                 className="inline-flex w-full justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-stone-400 text-base font-medium text-white hover:bg-stone-700 sm:ml-3 sm:w-auto sm:text-sm"
                                 onClick={() =>
+                                    {
                                     setShowModalPenolakan(
                                         false,
                                     )
+                                    handleResetTutup();
+                                    }
                                 }
                             >
                                 Tutup

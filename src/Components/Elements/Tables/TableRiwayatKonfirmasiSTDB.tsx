@@ -18,6 +18,7 @@ import TextKeterangan from '../TextKeterangan/TextKeterangan';
 import useLegalitasLahanForm from '../../../Hooks/useLegalitaasLahanForm';
 import InputDashboard from '../Input/InputDashboard';
 import SelectKonfirmasi from '../Select/SelectKonfirmasi';
+import useUpdateStatusConfirm from '../../../Hooks/useUpdateStatusConfirm';
 
 export default function PaginationTablePage() {
     const [showModal, setShowModal] = useState(false);
@@ -34,6 +35,17 @@ export default function PaginationTablePage() {
         }
     }, [user]);
 
+   
+
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        formState: { errors, isSubmitting },
+        onSubmit,
+        reset,
+    } = useUpdateStatusConfirm();
+
     useEffect(() => {
         const fetchSTDBS = async () => {
             try {
@@ -45,7 +57,7 @@ export default function PaginationTablePage() {
         };
 
         fetchSTDBS();
-    }, []);
+    }, [isSubmitting]);
 
     useEffect(() => {
         const fetchDataPemetaanKebun = async () => {
@@ -58,7 +70,7 @@ export default function PaginationTablePage() {
         };
         console.log(fetchDataPemetaanKebun());
         fetchDataPemetaanKebun();
-    }, []);
+    }, [isSubmitting]);
 
     const mergeData = (
         stdbs: LegalitasLahan[],
@@ -75,18 +87,13 @@ export default function PaginationTablePage() {
         });
     };
 
-    const {
-        register,
-        handleSubmit,
-        setValue,
-        formState: { errors, isSubmitting },
-        onSubmit,
-        reset,
-    } = useLegalitasLahanForm();
-
     const columns: ColumnDef<LegalitasLahan>[] = [
         {
             accessorKey: 'nomorSTDB',
+            header: 'Nomor STDB',
+        },
+        {
+            accessorKey: 'idPemetaanKebun',
             header: 'Nomor STDB',
         },
         {
@@ -105,7 +112,7 @@ export default function PaginationTablePage() {
         },
 
         {
-            accessorKey: 'nomorSTDB',
+            accessorKey: 'action',
             header: 'Action',
             cell: (cell: any) => {
                 return (
@@ -136,6 +143,7 @@ export default function PaginationTablePage() {
     ];
     const handleResetTutup = () => {
         reset();
+        
     };
 
     const filterData = (data: LegalitasLahan[]) => {
@@ -550,6 +558,22 @@ export default function PaginationTablePage() {
                                                                 )}
                                                             >
                                                                 <div className="">
+                                                                <InputDashboard
+                                                                            label="id pemetaan Kebun"
+                                                                            id="idPemetaanKebun"
+                                                                            type="string"
+                                                                            value={
+                                                                                stdb.idPemetaanKebun
+                                                                            }
+                                                                            register={
+                                                                                register
+                                                                            }
+                                                                            errors={
+                                                                                errors
+                                                                            }
+                                                                            placeholder="Masukan Id Pemetaan Kebun"
+                                                                            readOnly={true}
+                                                                        />
                                                                     <div className="">
                                                                         <InputDashboard
                                                                             label="Nomor STDB"
@@ -565,13 +589,17 @@ export default function PaginationTablePage() {
                                                                                 errors
                                                                             }
                                                                             placeholder="Masukan Nomor STDB"
+                                                                            readOnly={true}
                                                                         />
                                                                     </div>
 
                                                                     <InputDashboard
                                                                         label="Pesan Konfirmator"
                                                                         id="pesanKonfirmator"
-                                                                        type="string"
+                                                                        value={
+                                                                            pesanKonfirmator
+                                                                        }
+                                                                        type="text"
                                                                         register={
                                                                             register
                                                                         }
@@ -596,6 +624,9 @@ export default function PaginationTablePage() {
                                                                     <SelectKonfirmasi
                                                                         register={
                                                                             register
+                                                                        }
+                                                                        value={
+                                                                            statusKonfirmator
                                                                         }
                                                                         id="statusKonfirmasi"
                                                                         errors={

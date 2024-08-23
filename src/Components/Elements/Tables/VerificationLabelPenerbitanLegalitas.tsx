@@ -22,7 +22,7 @@ const VerificationLabelPenerbitanLegalitas: React.FC<
     if (
         statusPenerbitan === null ||
         statusPenerbitan === undefined ||
-        statusPenerbitan === 'Belum diterbitkan'
+        statusPenerbitan === 'Belum diterbitkan' || statusPenerbitan === 'Belum Diterbitkan'
     ) {
         status = 'Belum Diterbitkan';
     } else {

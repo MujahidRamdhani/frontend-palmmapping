@@ -239,15 +239,38 @@ const Profile = () => {
                     </div>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="p-6.5">
-                            <InputDashboard
-                                label="Nomor Induk Kependudukan (NIK)"
-                                id="idRole"
-                                type="string"
-                                register={register}
-                                errors={errors}
-                                placeholder="Masukan Nomor Induk Kependudukan"
-                                // value={user ? user.nik : 'null'}
-                            />
+                        {user?.data.role === 'petani' && (
+                         <InputDashboard
+                         label="Nomor Induk Kependudukan (NIK)"
+                         id="idRole"
+                         type="string"
+                         register={register}
+                         errors={errors}
+                         placeholder="Masukan Nomor Induk Kependudukan"
+                     />
+                    )}
+                    {user?.data.role === 'dinas' && (
+                         <InputDashboard
+                         label="Nomor Induk Pegawai (NIP)"
+                         id="idRole"
+                         type="string"
+                         register={register}
+                         errors={errors}
+                         placeholder="Masukan Nomor Induk Kependudukan"
+                     />
+                    )}
+                     {user?.data.role === 'petani' && (
+                         <InputDashboard
+                         label="Nomor Induk Pegawai (NIP)"
+                         id="idRole"
+                         type="string"
+                         register={register}
+                         errors={errors}
+                         placeholder="Masukan Nomor Induk Kependudukan"
+                     />
+                    )}
+
+                           
                             <InputDashboard
                                 label="Email"
                                 id="email"
@@ -291,14 +314,17 @@ const Profile = () => {
                                 placeholder="Masukan Tempat Tanggal Lahir Dinas"
                                 // value={nomorTelepon}
                             />
-                            <SelectMitraKoperasi
-                                control={control}
-                                errors={errors}
-                                label="Mitra Koperasi"
-                                register={register}
-                                id="mitraKoperasi"
-                                placeholder="Pilih Mitra Koperasi"
-                            />
+                    {user?.data.role === 'petani' && (
+                         <SelectMitraKoperasi
+                         control={control}
+                         errors={errors}
+                         label="Mitra Koperasi"
+                         register={register}
+                         id="mitraKoperasi"
+                         placeholder="Pilih Mitra Koperasi"
+                     />
+                    )}
+                           
 
                             <button
                                 type="submit"

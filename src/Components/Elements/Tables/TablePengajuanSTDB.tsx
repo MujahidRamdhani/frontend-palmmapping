@@ -100,7 +100,7 @@ export default function PaginationTablePage() {
         {
             accessorKey: 'statusKonfirmator',
             header: 'Status Konfirmasi',
-            // cell: (props) => <VerificationLabel status={props.getValue()} />,
+              cell: (props) => <VerificationLabel status={props.getValue()} />,
         },
         {
             accessorKey: 'idPemetaanKebun',
