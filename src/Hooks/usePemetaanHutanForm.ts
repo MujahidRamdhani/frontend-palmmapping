@@ -32,7 +32,7 @@ const useTambahPemetaanHutan = () => {
         try {
             console.log('Submitting form with data:', data);
             const response = await axios.post(
-                `http://localhost:9999/api/pemetaanHutan/CreatePemetaanHutan`,
+                `https://palmmapping-backend.my.to/api/pemetaanHutan/CreatePemetaanHutan`,
                 {
                     idHutan: data.idHutan,
                     namaHutan: data.namaHutan,

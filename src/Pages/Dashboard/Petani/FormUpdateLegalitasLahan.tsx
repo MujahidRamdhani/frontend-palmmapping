@@ -450,7 +450,7 @@ const FormUpdateLegalitasLahan = () => {
             };
 
             const axiosRes = await axios.put(
-                `http://localhost:9999/api/legalitasLahan/UpdateLegalitasLahan/${data.nomorSTDB}`,
+                `https://palmmapping-backend.my.to/api/legalitasLahan/UpdateLegalitasLahan/${data.nomorSTDB}`,
                 postData,
             );
             console.log('Axios response:');

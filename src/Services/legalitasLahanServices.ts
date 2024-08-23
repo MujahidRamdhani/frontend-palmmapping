@@ -4,7 +4,7 @@ import { LegalitasLahan } from '../types/legalitasLahan';
 export const GetAllLegalitasLahan = async (): Promise<LegalitasLahan[]> => {
     try {
         const response = await axios.get<{ data: LegalitasLahan[] }>(
-            'http://localhost:9999/api/LegalitasLahan/GetAllLegalitasLahan',
+            'https://palmmapping-backend.my.to/api/LegalitasLahan/GetAllLegalitasLahan',
         );
         return response.data.data;
     } catch (error) {
@@ -22,7 +22,7 @@ export const FindOneLegalitasLahan = async (
 ): Promise<LegalitasLahan> => {
     try {
         const response = await axios.put<{ data: LegalitasLahan }>(
-            `http://localhost:9999/api/LegalitasLahan/FindOneLegalitasLahan/${nomorSTDB}`,
+            `https://palmmapping-backend.my.to/api/LegalitasLahan/FindOneLegalitasLahan/${nomorSTDB}`,
         );
 
         return response.data.data;
@@ -41,7 +41,7 @@ export const HistoryLegalitasLahan = async (
 ): Promise<LegalitasLahan[]> => {
     try {
         const response = await axios.put<{ data: LegalitasLahan[] }>(
-            `http://localhost:9999/api/legalitasLahan/HistoryLegalitasLahan/${nomorSTDB}`,
+            `https://palmmapping-backend.my.to/api/legalitasLahan/HistoryLegalitasLahan/${nomorSTDB}`,
         );
         console.log('data', response.data.data);
         return response.data.data;

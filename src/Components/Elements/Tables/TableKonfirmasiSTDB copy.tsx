@@ -202,7 +202,7 @@ export default function PaginationTablePage() {
     const getProducts = async () => {
         try {
             const response = await axios.get(
-                'http://localhost:9999/api/legalitasLahan/GetAllLegalitasLahan',
+                'https://palmmapping-backend.my.to/api/legalitasLahan/GetAllLegalitasLahan',
             );
             setStdbs(response.data.data);
             console.log('Axios response:', response.data.data);

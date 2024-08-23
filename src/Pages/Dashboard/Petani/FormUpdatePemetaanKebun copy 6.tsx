@@ -14,8 +14,6 @@ import { DataPemetaanKebun } from '../../../types/dataPemetaanKebun';
 import InputDashboard from '../../../Components/Elements/Input/InputDashboard';
 import useTambahPemetaanKebunForm from '../../../Hooks/useTambahPemetaanKebunForm';
 import Button from '../../../Components/Elements/Button/Button';
-import useUpdatePemetaanKebunForm from '../../../Hooks/useUpdatePemetaankebunForm';
-import LeafletgeoSearch from '../../../Components/Elements/LeaftletGeoSearch/LeafletgeoSearch';
 
 const FormUpdatePemetaanKebun: React.FC = () => {
     const { user } = useAuthStore((state) => state);
@@ -28,7 +26,6 @@ const FormUpdatePemetaanKebun: React.FC = () => {
         [],
     );
     const [dataLoaded, setDataLoaded] = useState(false);
-    const [dataDetelete, setDataDetelete] = useState(false);
     const pusat = { lat: -1.8226668, lng: 116.084616 };
     const ZOOM_LEVEL = 30;
     const mapContainerRef = useRef<any>(null);
@@ -39,6 +36,7 @@ const FormUpdatePemetaanKebun: React.FC = () => {
     const [mapKey, setMapKey] = useState(0);
     const state = location.state;
     const [renderTrigger, setRenderTrigger] = useState(false);
+    const [luas, setLuas] = useState('');
     const {
         register,
         handleSubmit,
@@ -46,22 +44,16 @@ const FormUpdatePemetaanKebun: React.FC = () => {
         formState: { errors, isSubmitting },
         onSubmit,
         setValue,
-    } = useUpdatePemetaanKebunForm();
+    } = useTambahPemetaanKebunForm();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-<<<<<<< HEAD
                 // Fetch kebun data
                 const kebunResponse = await axios.put<{
                     data: DataPemetaanKebun;
                 }>(
-                    `http://localhost:9999/api/pemetaanKebun/FindOnePemetaanKebun/${state.customData}`,
-=======
-                console.log('state', state.customData);
-                const response = await axios.put<{ data: DataPemetaanKebun[] }>(
                     `https://palmmapping-backend.my.to/api/pemetaanKebun/FindOnePemetaanKebun/${state.customData}`,
->>>>>>> 0c486f5354261ffecadf00a70f57fa2e65af70f9
                 );
                 const kebunData = kebunResponse.data.data;
 
@@ -91,16 +83,14 @@ const FormUpdatePemetaanKebun: React.FC = () => {
                 setValue('statusKawasan', kawasanKebun);
                 setValue('latitude', kebunData.latitude);
                 setValue('longitude', kebunData.longitude);
-                setValue('luasLahan', parseFloat(kebunData.luasKebun));
+                setValue('luasLahan', kebunData.luasKebun);
                 setValue('nomorSTDB', state.customData);
                 setValue('idPemetaanKebun', kebunData.idPemetaanKebun);
-                setValue('waktuPemetaanKebun', kebunData.waktuPemetaanKebun);
-                setValue('waktuVerifikator', kebunData.waktuVerifikator);
                 setLapisanPetaKebun([newPolygonKebun]);
 
                 // Fetch hutan data
                 const hutanResponse = await axios.get<{ data: any[] }>(
-                    'http://localhost:9999/api/pemetaanHutan/GetAllPemetaanHutan',
+                    'https://palmmapping-backend.my.to/api/pemetaanHutan/GetAllPemetaanHutan',
                 );
                 const hutanData = hutanResponse.data.data;
 
@@ -120,7 +110,7 @@ const FormUpdatePemetaanKebun: React.FC = () => {
                             id: index + 1,
                             latlngs: coords,
                             color: '#02ad05',
-                            kawasan: `hutan`,
+                            kawasan: `hutan ${index + 1}`,
                         })),
                     );
                 }
@@ -136,56 +126,43 @@ const FormUpdatePemetaanKebun: React.FC = () => {
 
     useEffect(() => {
         console.log('layer2', newMaps);
-        console.log('dateDetelete', dataDetelete);
-        if (dataDetelete === false) {
-            if (newMaps.length > 0) {
-                const filteredLayers = newMaps.filter(
-                    (layer) => layer.kawasan !== 'hutan',
-                );
+        if (newMaps.length > 0) {
+            const filteredLayers = newMaps.filter(
+                (layer) => layer.kawasan !== 'hutan',
+            );
 
-                const dataLat = filteredLayers.flatMap((layer) =>
-                    layer.latlngs.map((coord) => coord.lat),
-                );
-                const dataIng = filteredLayers.flatMap((layer) =>
-                    layer.latlngs.map((coord) => coord.lng),
-                );
+            const dataLat = filteredLayers.flatMap((layer) =>
+                layer.latlngs.map((coord) => coord.lat),
+            );
+            const dataIng = filteredLayers.flatMap((layer) =>
+                layer.latlngs.map((coord) => coord.lng),
+            );
 
-                const dataLatString = JSON.stringify(dataLat);
-                const dataIngString = JSON.stringify(dataIng);
+            const dataLatString = JSON.stringify(dataLat);
+            const dataIngString = JSON.stringify(dataIng);
 
-                const kawasan =
-                    filteredLayers.length > 0 ? filteredLayers[0].kawasan : '';
-                const area =
-                    filteredLayers.length > 0
-                        ? turf.area(
-                              turf.polygon([
-                                  filteredLayers[0].latlngs.map((coord) => [
-                                      coord.lng,
-                                      coord.lat,
-                                  ]),
+            const kawasan =
+                filteredLayers.length > 0 ? filteredLayers[0].kawasan : '';
+            const area =
+                filteredLayers.length > 0
+                    ? turf.area(
+                          turf.polygon([
+                              filteredLayers[0].latlngs.map((coord) => [
+                                  coord.lng,
+                                  coord.lat,
                               ]),
-                          )
-                        : 0;
-                const readableArea = `${(area / 10000).toFixed(2)}`;
+                          ]),
+                      )
+                    : 0;
+            const readableArea = `${(area / 10000).toFixed(2)}`;
 
-                setValue('latitude', dataLatString);
-                setValue('longitude', dataIngString);
-                setValue('statusKawasan', kawasan);
-                setValue('luasLahan', parseFloat(readableArea));
-                setValue('nomorSTDB', state.customData);
-                setValue('nomorSTDB', state.customData);
-
-                console.log('tampil');
-            }
-        } else {
-            reset({
-                latitude: '',
-                longitude: '',
-                statusKawasan: '',
-                luasLahan: 0,
-            });
+            setValue('latitude', dataLatString);
+            setValue('longitude', dataIngString);
+            setValue('statusKawasan', kawasan);
+            setValue('luasLahan', readableArea);
+            setValue('nomorSTDB', state.customData);
         }
-    }, [newMaps, dataDetelete]);
+    }, [newMaps]);
 
     const titikDalamPoligon = (
         titik: LatLngLiteral,
@@ -249,36 +226,29 @@ const FormUpdatePemetaanKebun: React.FC = () => {
     };
 
     const _onCreate = (e: any) => {
-        setDataDetelete(false);
-
-        if (!dataLoaded || koordinatAwal.length === 0) {
-            console.error('Data belum dimuat atau koordinat awal tidak valid');
-            return;
-        }
-
         const { layerType, layer } = e;
         if (layerType === 'polygon') {
             const { _leaflet_id } = layer;
             let latlngs: LatLngLiteral[] = layer.getLatLngs()[0];
 
             // Ensure the polygon is closed
-            if (
-                latlngs[0].lat !== latlngs[latlngs.length - 1].lat ||
-                latlngs[0].lng !== latlngs[latlngs.length - 1].lng
-            ) {
+            if (latlngs[0] !== latlngs[latlngs.length - 1]) {
                 latlngs.push(latlngs[0]);
             }
 
-            console.log('Koordinat Poligon Baru:', latlngs);
             const { color, kawasan } = tentukanWarnaPoligon(latlngs);
 
-            const newLayer = { id: _leaflet_id, latlngs, color, kawasan };
+            setNewMaps((prevState) => [
+                ...prevState,
+                { id: _leaflet_id, latlngs, color, kawasan },
+            ]);
 
-            setLapisanPetaKebun((layers) => [...layers, newLayer]);
+            setLapisanPetaKebun((prevState) => [
+                ...prevState,
+                { id: _leaflet_id, latlngs, color, kawasan },
+            ]);
 
-            if (kawasan !== 'hutan') {
-                setNewMaps((prevNewMaps) => [...prevNewMaps, newLayer]);
-            }
+            console.log('Polygon created with color:', color);
         }
     };
 
@@ -286,7 +256,7 @@ const FormUpdatePemetaanKebun: React.FC = () => {
         const {
             layers: { _layers },
         } = e;
-        setDataDetelete(false);
+
         const updatedLayers = Object.values(_layers).map((layer: any) => {
             const { _leaflet_id } = layer;
             let latlngs: LatLngLiteral[] = layer.getLatLngs()[0];
@@ -303,32 +273,41 @@ const FormUpdatePemetaanKebun: React.FC = () => {
             return { id: _leaflet_id, latlngs, color, kawasan };
         });
 
+        // Clear all layers first
         setLapisanPetaKebun([]);
 
+        // Then update states with the modified layers
         setLapisanPetaKebun((prevLayers) => {
-            const hutanLayers = prevLayers.filter((layer) =>
-                layer.kawasan.startsWith('hutan'),
-            );
-            const nonHutanUpdatedLayers = updatedLayers.filter(
-                (layer) => !layer.kawasan.startsWith('hutan'),
+            const updatedLapisanPetaKebun = updatedLayers.map((layer) => {
+                const updatedLayer = updatedLayers.find(
+                    (updatedLayer) => updatedLayer.id === layer.id,
+                );
+                return updatedLayer ? { ...layer, ...updatedLayer } : layer;
+            });
+
+            const newLayers = updatedLayers.filter(
+                (updatedLayer) =>
+                    !prevLayers.some((layer) => layer.id === updatedLayer.id),
             );
 
-            const updatedLapisanPeta = prevLayers
-                .filter(
-                    (layer) =>
-                        !nonHutanUpdatedLayers.some(
-                            (updatedLayer) => updatedLayer.id === layer.id,
-                        ),
-                )
-                .concat(nonHutanUpdatedLayers);
-
-            return updatedLapisanPeta.concat(hutanLayers);
+            return [...updatedLapisanPetaKebun, ...newLayers];
         });
 
-        const newNonHutanLayers = updatedLayers.filter(
-            (layer) => layer.kawasan !== 'hutan',
-        );
-        setNewMaps(newNonHutanLayers);
+        setNewMaps((prevLayers) => {
+            const updatedNewMaps = updatedLayers.map((layer) => {
+                const updatedLayer = updatedLayers.find(
+                    (updatedLayer) => updatedLayer.id === layer.id,
+                );
+                return updatedLayer ? { ...layer, ...updatedLayer } : layer;
+            });
+
+            const newLayers = updatedLayers.filter(
+                (updatedLayer) =>
+                    !prevLayers.some((layer) => layer.id === updatedLayer.id),
+            );
+
+            return [...updatedNewMaps, ...newLayers];
+        });
 
         // Force re-render
         setRenderTrigger((prev) => !prev);
@@ -336,7 +315,6 @@ const FormUpdatePemetaanKebun: React.FC = () => {
     };
 
     const _onDeleted = (e: any) => {
-        setDataDetelete(true);
         const {
             layers: { _layers },
         } = e;
@@ -344,7 +322,7 @@ const FormUpdatePemetaanKebun: React.FC = () => {
             latitude: '',
             longitude: '',
             statusKawasan: '',
-            luasLahan: 0,
+            luasLahan: '',
         });
 
         Object.values(_layers).forEach((layer: any) => {
@@ -356,23 +334,12 @@ const FormUpdatePemetaanKebun: React.FC = () => {
         );
 
         setNewMaps((prevState) =>
-            prevState.filter((layer) => {
-                if (layer.kawasan === 'hutan') {
-                    return true; // Preserve hutan layers
-                }
-                return !deletedLayerIds.includes(layer.id!);
-            }),
+            prevState.filter((layer) => !deletedLayerIds.includes(layer.id!)),
         );
 
         setLapisanPetaKebun((prevState) =>
-            prevState.filter((layer) => {
-                if (layer.kawasan === 'hutan') {
-                    return true; // Preserve hutan layers
-                }
-                return !deletedLayerIds.includes(layer.id!);
-            }),
+            prevState.filter((layer) => !deletedLayerIds.includes(layer.id!)),
         );
-        console.log('Lapisan Peta Kebun:', deletedLayerIds);
     };
 
     const renderedPolygonsKebun = useMemo(() => {
@@ -402,8 +369,6 @@ const FormUpdatePemetaanKebun: React.FC = () => {
     if (!dataLoaded) {
         return <div>Loading...</div>;
     }
-    const MAPBOX_ACCESS_TOKEN =
-    'pk.eyJ1IjoiYWhtYWRtdWphaGlkIiwiYSI6ImNsdzFiaW1ibjA0N3Mya3FqdWFhZXhqc3oifQ.8hMXRQtRBrfZfyl6-kjFLw';
 
     return (
         <DefaultLayout>
@@ -412,7 +377,7 @@ const FormUpdatePemetaanKebun: React.FC = () => {
                 <div className="px-2 pb-2 lg:pb-4">
                     <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
                         <h3 className="font-medium text-black dark:text-white">
-                            Form Update Pemetaan Lahan
+                            Form Pemetaan Lahan
                         </h3>
                     </div>
                     <div className="leaflet-container2">
@@ -422,9 +387,6 @@ const FormUpdatePemetaanKebun: React.FC = () => {
                             zoom={ZOOM_LEVEL}
                             ref={mapContainerRef}
                         >
-                            <LeafletgeoSearch />
-                            <FeatureGroup>{renderedPolygonsHutan}</FeatureGroup>
-
                             <FeatureGroup>
                                 {dataLoaded && (
                                     <EditControl
@@ -454,125 +416,18 @@ const FormUpdatePemetaanKebun: React.FC = () => {
                                 {renderedPolygonsKebun}
                             </FeatureGroup>
 
+                            <FeatureGroup>{renderedPolygonsHutan}</FeatureGroup>
+
                             <TileLayer
-                                url={`https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/{z}/{x}/{y}?access_token=${MAPBOX_ACCESS_TOKEN}`}
-                                attribution='&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                url={
+                                    'https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=fXmTwJM642uPLZiwzhA1'
+                                }
+                                attribution={
+                                    '&copy; <a href="https://www.maptiler.com/">MapTiler</a> &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                }
                             />
                         </MapContainer>
                     </div>
-                </div>
-                <div className="mx-4 mb-2">
-                    <form className="" onSubmit={handleSubmit(onSubmit)}>
-                        <div className="mt-6">
-                            <label
-                                className="mb-3 block text-black dark:text-white"
-                                htmlFor="latitude"
-                            >
-                                Data Latitude
-                            </label>
-                            <textarea
-                                id="latitude"
-                                {...register('latitude')}
-                                rows={2}
-                                className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                disabled
-                            ></textarea>
-                            {errors.latitude && (
-                                <div className="text-red-500">
-                                    {errors.latitude.message}
-                                </div>
-                            )}
-                        </div>
-                        <div className="mt-6">
-                            <label
-                                className="mb-3 block text-black dark:text-white"
-                                htmlFor="longitude"
-                            >
-                                Data longitude
-                            </label>
-                            <textarea
-                                id="longitude"
-                                {...register('longitude')}
-                                rows={3}
-                                className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                disabled
-                            ></textarea>
-                            {errors.longitude && (
-                                <div className="text-red-500">
-                                    {errors.longitude.message}
-                                </div>
-                            )}
-                        </div>
-                        <div className="flex flex-row">
-                            <div className="w-5/12">
-                                <InputDashboard
-                                    label="Status Kawasan"
-                                    type="text"
-                                    id="statusKawasan"
-                                    register={register}
-                                    errors={errors}
-                                    disabled
-                                />
-                            </div>
-                            <div className="w-5/12 ml-auto flex">
-                                <InputDashboard
-                                    label="Luas Lahan"
-                                    type="number"
-                                    id="luasLahan"
-                                    register={register}
-                                    errors={errors}
-                                    disabled
-                                    span="HA"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="">
-                            <InputDashboard
-                                label="Nomor STDB"
-                                type="text"
-                                id="nomorSTDB"
-                                register={register}
-                                errors={errors}
-                                disabled={true}
-                            />
-                            <InputDashboard
-                                label="Id Pemetaan Kebun"
-                                type="text"
-                                id="idPemetaanKebun"
-                                register={register}
-                                errors={errors}
-                                disabled={true}
-                            />
-                            <div className="">
-                                <InputDashboard
-                                    label="waktuPemetaanKebun"
-                                    type="text"
-                                    id="waktuPemetaanKebun"
-                                    register={register}
-                                    errors={errors}
-                                    disabled={true}
-                                />
-                                <InputDashboard
-                                    label="waktuVerifikator"
-                                    type="text"
-                                    id="waktuVerifikator"
-                                    register={register}
-                                    errors={errors}
-                                    disabled={true}
-                                />
-                            </div>
-                        </div>
-
-                        <Button width="full" isSubmitting={isSubmitting}>
-                            Kirim
-                        </Button>
-                        {errors.root && (
-                            <div className="text-red-500">
-                                {errors.root.message}
-                            </div>
-                        )}
-                    </form>
                 </div>
             </div>
         </DefaultLayout>

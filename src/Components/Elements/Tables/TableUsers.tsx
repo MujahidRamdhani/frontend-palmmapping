@@ -68,7 +68,7 @@ export default function PaginationTablePage() {
             // Simulate API call
             // await new Promise((resolve) => setTimeout(resolve, 1000));
             const response = await axios.post(
-                `http://localhost:9999/api/users/InvokeCaUser`,
+                `https://palmmapping-backend.my.to/api/users/InvokeCaUser`,
                 {
                     emailUser: data.email,
                     roleUser: data.role,
@@ -98,7 +98,7 @@ export default function PaginationTablePage() {
 
     // const getUSERS = async () => {
     //     try {
-    //         const response = await axios.get('http://localhost:9999/api/users/findAllUsers');
+    //         const response = await axios.get('https://palmmapping-backend.my.to/api/users/findAllUsers');
     //         setUsers(response.data.data);
     //         console.log('Axios response:', response.data.data);
     //     } catch (error) {
@@ -113,7 +113,7 @@ export default function PaginationTablePage() {
     const getUSERS = async () => {
         try {
             const response = await axios.get(
-                'http://localhost:9999/api/users/findAllUsers',
+                'https://palmmapping-backend.my.to/api/users/findAllUsers',
             );
             setUsers(response.data.data);
             console.log('Axios response 2:', response.data.data);

@@ -35,7 +35,7 @@ const useTambahPemetaanKebunForm = () => {
         try {
             console.log('Submitting form with data:', data);
             const response = await axios.post(
-                `http://localhost:9999/api/pemetaanKebun/CreatePemetaanKebun`,
+                `https://palmmapping-backend.my.to/api/pemetaanKebun/CreatePemetaanKebun`,
                 {
                     latitude: data.latitude,
                     longitude: data.longitude,

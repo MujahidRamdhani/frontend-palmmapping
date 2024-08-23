@@ -67,7 +67,7 @@ const FormLogin = () => {
     //     const checkSession = async () => {
     //         try {
     //             const response = await axios.get(
-    //                 'http://localhost:9999/api/users/checkSession',
+    //                 'https://palmmapping-backend.my.to/api/users/checkSession',
     //             );
     //             console.log(response);
     //         } catch (error) {

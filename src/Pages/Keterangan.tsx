@@ -62,7 +62,7 @@ const Keterangan = () => {
     const getUSERS = async () => {
         try {
             const response = await axios.get(
-                'http://localhost:9999/api/users/findAllUsers',
+                'https://palmmapping-backend.my.to/api/users/findAllUsers',
             );
             setUsers(response.data.data);
             console.log('Axios response 2:', response.data.data);
